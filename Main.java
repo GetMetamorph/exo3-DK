@@ -7,17 +7,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String fileName = args[0];
-        String operatorSymbol = args[1];
+        String fileName = "numbers.csv";
+
+        List<String> operators = List.of("+", "*");
 
         CsvParser csvParser = new CsvParser(fileName);
 
-        Operator operator = Operator.fromString(operatorSymbol);
         List<String> values = csvParser.parseCsv().getValues();
 
         OutputFormatter outputFormatter = new OutputFormatter();
-        String output = outputFormatter.formatOutput(values, operator);
+        for (String operatorSymbol : operators) {
+            Operator operator = Operator.fromString(operatorSymbol);
+            String output = outputFormatter.formatOutput(values, operator);
 
-        System.out.println(output);
+            System.out.println(output);
+        }
     }
 }
